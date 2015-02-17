@@ -1,5 +1,5 @@
 require 'rake'
-
+require 'rspec/core/rake_task'
 require ::File.expand_path('../config/environment', __FILE__)
 
 # Include all of ActiveSupport's core class extensions, e.g., String#camelize
@@ -132,3 +132,8 @@ task "console" do
 end
 
 task :default  => :spec
+
+desc "Run the specs."
+RSpec::Core::RakeTask.new do |t|
+  t.pattern = "spec/**/*_spec.rb" 
+end
