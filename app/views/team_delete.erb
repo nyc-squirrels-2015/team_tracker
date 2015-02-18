@@ -1,0 +1,8 @@
+<div class="container">
+  <h3><%=@team.name%></h3>
+  <h4>Would you really like to delete this team?</h4>
+  <form action="/teams/<%=@team.id%>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Confirm Delete">
+  </form>
+</div>

@@ -1,0 +1,10 @@
+<div class='container'>
+  <form action="/teams/<%=@team.id%>" method="post">
+    <input type="hidden" name="_method" value="put">
+    <input type="text" name="team_name">
+    <input type="submit" value="Edit Team">
+  </form>
+</div>
+
+<!-- Add ability to change players -->
+<!-- Add in a transfer of ownership section? -->
