@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="error initiallyHidden">
+  </div>
+  <div class="form_container">
+    <h2>Log In</h2>
+    <form id="login" action="/login" method="post">
+      <ul class="no_bullets">
+        <li>Username: <input type="text" name="username"></li>
+        <li>Password: <input type="password" name="password"></li>
+        <input type="submit" value="Log In">
+      </ul>
+    </form>
+  </div>
+  <div id="signup" class="form_container">
+    <h2>Sign Up</h2>
+    <form id="login" action="/signup" method="post">
+      <ul class="no_bullets">
+        <li>Username: <input type="text" name="new_user[username]"></li>
+        <li>Email: <input type="text" name="new_user[email]"></li>
+        <li>Password: <input type="password" name="new_user[password]"></li>
+        <li>Password Confirmation: <input type="password" name="new_user[password_confirmation]"></li>
+        <input type="submit" value="Sign Up">
+      </ul>
+    </form>
+  </div>
+</div>
