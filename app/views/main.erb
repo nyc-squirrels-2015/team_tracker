@@ -6,9 +6,13 @@
         <li>
           <a href="/teams/<%=team.id%>"><%= team.name %></a>
           <p>Points: <%= team.score%></p>
-          <p>Owner: <%= team.user.username%></p>
+          <p>Owner: <a href="/users/<%=team.user.id%>"><%= team.user.username%></a></p>
+          <form action="/teams/<%=team.id%>/vote" method="post">
+            <input type="hidden" name="_method" value="put">
+            <input type="submit" value="Up Vote">
+          </form>
         </li>
-      <%end%>
+      <% end %>
     </ul>
   </div>
 </div>
