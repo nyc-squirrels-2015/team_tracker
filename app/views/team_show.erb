@@ -1,0 +1,19 @@
+<div class="container">
+  <h2><%= @team.name %></h2>
+  <p>Score: <%= @team.score %></p>
+  <p>Owner: <%= @team.user.username %></p>
+  <table>
+    <tr>
+      <th>Player</th>
+      <th>Pro Team</th>
+      <th>Age</th>
+    </tr>
+    <% @team.players.each do |player| %>
+      <tr>
+        <td><%=player.last_name%>, <%=player.first_name%></td>
+        <td><%=player.pro_team%></td>
+        <td><%=player.age%></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
