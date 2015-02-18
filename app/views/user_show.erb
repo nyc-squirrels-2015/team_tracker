@@ -1,0 +1,16 @@
+<div class="container">
+  <h2><%=@user.username%></h2>
+  <h3><%=@user.username%>'s Teams:</h3>
+  <ul>
+    <%@user.teams.each do |team|%>
+      <% if !current_user == nil && current_user.id == @user.id %>
+        <a href="/teams/<%=team.id%>"><%= team.name %></a>
+        <!-- Form to delete team -->
+        <p>Points: <%= team.score%></p>
+      <% else %>
+        <a href="/teams/<%=team.id%>"><%= team.name %></a>
+        <p>Points: <%= team.score%></p>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
