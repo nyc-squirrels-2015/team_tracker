@@ -1,0 +1,8 @@
+<div class="container">
+  <h3><%=@user.username%></h3>
+  <h4>Would you really like to delete this profile?</h4>
+  <form action="/users/<%=@user.id%>" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Confirm Delete">
+  </form>
+</div>

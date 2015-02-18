@@ -1,0 +1,14 @@
+<div class="container">
+  <h3>Edit all information that you would like to change</h3>
+  <p>Leave all else blank</p>
+  <form action="/users/<%=@user.id%>" method="post">
+    <input type="hidden" name="_method" value="put">
+    <ul class="no_bullets">
+      <li>Username: <input type="text" name="edit[username]"></li>
+      <li>Email: <input type="text" name="edit[email]"></li>
+      <li>Password: <input type="password" name="edit[password]"></li>
+      <li>Password Confirmation: <input type="password" name="edit[password_confirmation]"></li>
+      <li><input type="submit" value="Update Profile"></li>
+    </ul>
+  </form>
+</div>
