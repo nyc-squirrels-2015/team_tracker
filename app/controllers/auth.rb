@@ -23,6 +23,7 @@ end
 post '/signup' do
 
   user = User.new(params[:new_user])
+  user.save
 
   if user.save
     session[:id] = user.id
