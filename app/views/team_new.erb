@@ -2,13 +2,18 @@
   <div class="form_container">
     <form action="/teams" method="post">
       <ul class="no_bullets">
-        <li><input type='text' name='team_name' placeholder='Your Team Name'></li>
-        <li><select name="player"></li>
-          <% @players.each do |player| %>
-            <option value="<%=player.id%>"><%=player.last_name%>, <%=player.first_name%></option>
-          <% end %>
-        </select>
-        <li><a class="button" href="#">Add player</a> <a class="button" href="#">Remove player</a></li>
+        <li>Team Name: <input type='text' name='team_name' placeholder='Your Team Name'></li>
+        <div class="player_selection">
+          <li>
+            <p>Player 1:</p>
+            <select class="player" name="players[player_0]">
+              <% @players.each do |player| %>
+                <option value="<%=player.id%>"><%=player.last_name%>, <%=player.first_name%></option>
+              <% end %>
+            </select>
+          </li>
+        </div>
+        <li><a class="button add_player" href="#">Add player</a> <a class="button remove_player" href="#">Remove</a></li>
         <li><input type='submit' value="Create Team"></li>
       </ul>
     </form>
