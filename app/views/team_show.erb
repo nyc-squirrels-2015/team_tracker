@@ -2,15 +2,15 @@
   <h2><%= @team.name %></h2>
   <p>Score: <%= @team.score %></p>
   <p>Owner: <%= @team.user.username %></p>
-  <table>
+  <table class="my_team">
     <tr>
       <th>Player</th>
       <th>Position</th>
       <th>Pro Team</th>
       <th>Age</th>
     </tr>
-    <!-- Come up with a way to order these by position -->
-    <% @team.players.each do |player| %>
+    <!-- Come up with a way to order these by position rather than just alphabetically -->
+    <% @team.players.order(position: :asc).each do |player| %>
       <tr>
         <td><%=player.last_name%>, <%=player.first_name%></td>
         <td><%=player.position%></td>
@@ -19,4 +19,8 @@
       </tr>
     <% end %>
   </table>
+  <% if session[:id] == @team.user.id %>
+    <a href="/teams/<%=@team.id%>/edit">Edit Team</a>
+    <a href="/teams/<%=@team.id%>/delete">Delete Team</a>
+  <% end %>
 </div>
