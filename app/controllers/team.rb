@@ -4,8 +4,18 @@ get '/' do
 end
 
 get '/teams/new' do
+  if session[:id] == nil
+    redirect '/login'
+  else
+    @players = Player.all.order(last_name: :asc)
+    erb :team_new
+  end
+end
+
+get '/teams/new/add_player' do
+  @num_players = params[:player_count].to_i
   @players = Player.all.order(last_name: :asc)
-  erb :team_new
+  erb :_add_player, layout: false
 end
 
 get '/teams/:id' do |id|
@@ -14,14 +24,12 @@ get '/teams/:id' do |id|
 end
 
 post '/teams' do
-  if session[:id] == nil
-    redirect '/login'
-  else
-    user = User.find(session[:id])
-    new_team = Team.create(name: params[:team_name], user_id: user.id )
-    TeamPlayer.create(player_id: params[:player], team_id: new_team.id)
-    redirect '/'
+  user = User.find(session[:id])
+  new_team = Team.create(name: params[:team_name], user_id: user.id )
+  params[:players].each_value do |player_id|
+    TeamPlayer.create(player_id: player_id, team_id: new_team.id)
   end
+  redirect '/'
 end
 
 get '/teams/:id/edit' do |id|
@@ -30,7 +38,16 @@ get '/teams/:id/edit' do |id|
 end
 
 put '/teams/:id' do |id|
-  Team.find(id).update_attributes(name: params[:team_name])
+  if User.find_by(username: params[:edit_team][:username]) == nil
+    params[:edit_team][:username].clear
+  elsif params[:edit_team][:username] != nil
+    params[:edit_team][:user_id] = User.find_by(username: params[:edit_team][:username]).id
+    params[:edit_team][:username].clear
+  end
+
+  strip_empty(params[:edit_team])
+
+  Team.find(id).update_attributes(params[:edit_team])
   redirect "/teams/#{id}"
 end
 
@@ -48,13 +65,21 @@ put '/teams/:id/vote' do |id|
   team = Team.find(id)
   if session[:id] == nil
     # Anyone who is not logged in cannot vote
-    redirect '/login'
+    if request.xhr?
+      401
+    else
+      redirect '/login'
+    end
   elsif team.user.id == session[:id]
-    # This prevents users from voting for their own teams
-    redirect '/'
+    # Restriction that you cannot vote for your own team
+    nil
   else
     team.score += 1
     team.save
-    redirect '/'
+    if request.xhr?
+      {team_id: id, score: team.score}.to_json
+    else
+      redirect '/'
+    end
   end
 end
