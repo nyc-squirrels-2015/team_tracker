@@ -1,8 +1,3 @@
-get '/' do
-  @teams = Team.all
-  erb :main
-end
-
 get '/login' do
   erb :login
 end
@@ -11,13 +6,18 @@ post '/login' do
   user = User.find_by(username: params[:username])
   if user.try(:authenticate, params[:password])
     session[:id] = user.id
-    redirect "/"
-    # {status: 200, path: "/"}
+    if request.xhr?
+      {status: 200, path: "/"}.to_json
+    else
+      redirect '/'
+    end
   else
-    redirect '/login'
-    #401
+    if request.xhr?
+      401
+    else
+      redirect '/login'
+    end
   end
-  #Change to above comments here when implementing AJAX
 end
 
 post '/signup' do
