@@ -11,10 +11,12 @@
     application.css is where you put your styles
   -->
   <link rel="stylesheet" href="/css/application.css">
+  <!-- <link rel="stylesheet" href="/css/bootstrap.css"> -->
   <!-- Load Vollkorn font -->
   <link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,400' rel='stylesheet' type='text/css'>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="/js/errorModule.js"></script>
   <script src="/js/application.js"></script>
 
   <title></title>
@@ -22,12 +24,11 @@
 <body>
 <div class="navbar">
   <a class="btn" href="/">Home</a>
+  <a class="btn" href="/teams/new">Create Team</a>
   <% if session[:id] == nil %>
-    <a class="btn" href="/login">Log In</a>
-    <a class="btn" href="/signup">Sign Up</a>
+    <a class="btn" href="/login">Log In/Sign Up</a>
   <% else %>
     <a class="btn" href="/users/<%=session[:id]%>">Profile</a>
-    <a class="btn" href="/teams/new">Create Team</a>
     <a class="btn" href="/logout">Log Out</a>
   <% end %>
 </div>
