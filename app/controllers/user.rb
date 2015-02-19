@@ -9,9 +9,10 @@ get '/users/:id/edit' do |id|
 end
 
 put '/users/:id' do |id|
-  params[:edit].delete_if do |key, value|
-    value == ""
-  end
+  # params[:edit].delete_if do |key, value|
+  #   value == ""
+  # end
+  strip_empty(param[:edit])
   User.find(id).update_attributes(params[:edit])
   redirect "/users/#{id}"
 end
